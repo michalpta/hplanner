@@ -1,5 +1,5 @@
 <template>
-  <l-circle :lat-lng="center" :radius="radius" :color="color"/>
+  <l-circle :lat-lng="center" :radius="radius" :color="color" :fill-opacity="1" :fill-color="color"/>
 </template>
 
 <script>

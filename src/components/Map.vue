@@ -9,7 +9,7 @@
     @update:bounds="boundsUpdated"
   >
     <l-tile-layer :url="url"></l-tile-layer>
-    <map-circle :center="circle.center" :radius="circle.radius" :color="circle.color" />
+    <map-circle :center="circle.center" :radius="circle.radius * 10" :color="circle.color" />
     <map-circle v-for="(location, index) of cities" :key="index" :center="location.location" :radius="circle.radius * 10" :color="'blue'" />
   </l-map>
   </div>

@@ -1,17 +1,19 @@
 <template>
-  <!-- <div id="app"> -->
+  <div id="app">
     <Map />
-  <!-- </div> -->
+    <Destination />
+  </div>
 </template>
 
 <script>
 import Map from './components/Map.vue';
-
+import Destination from './components/Destination.vue';
 
 export default {
   name: 'app',
   components: {
     Map,
+    Destination,
   },
 };
 </script>
@@ -23,7 +25,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   padding: 0;
 }
 </style>
