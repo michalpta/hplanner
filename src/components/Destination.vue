@@ -34,8 +34,7 @@ export default {
   },
   methods: {
     submit() {
-        console.log('witam');
-        if (!this.city && !this.month)
+        if (this.city !== "" && this.month !== "")
             this.$emit("submitLocation", { city: this.city, month: this.month });
     }
   }
