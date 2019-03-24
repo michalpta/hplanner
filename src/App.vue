@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <Map />
-    <Destination />
+    <Destination :cities="cities" />
   </div>
 </template>
 
 <script>
 import Map from './components/Map.vue';
 import Destination from './components/Destination.vue';
+import locations from './data/locations';
 
 export default {
   name: 'app',
@@ -15,12 +16,17 @@ export default {
     Map,
     Destination,
   },
+  computed: {
+    cities() {
+      return locations;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
