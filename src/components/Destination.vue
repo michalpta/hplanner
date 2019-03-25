@@ -1,13 +1,21 @@
 <template>
   <div style="margin-top: 10px;">
     <div>
+      <label>Name</label>
+      <input v-model="name" />
+    </div>
+    <div>
+      <label>Email</label>
+      <input v-model="email" />
+    </div>
+    <div>
       <label>City</label>
       <select v-model="city">
         <option v-for="(city, index) of cities" :key="index">{{ city.name }}</option>
       </select>
     </div>
     <div>
-        <label>Date</label>
+      <label>Date</label>
       <select v-model="month">
         <option v-for="(date, index) of dates" :key="index">{{ date }}</option>
       </select>
@@ -24,7 +32,9 @@ export default {
   data() {
     return {
       city: "",
-      month: ""
+      month: "",
+      name: "",
+      email: "",
     };
   },
   computed: {
@@ -47,6 +57,14 @@ select {
     border-radius: 3px;
     margin-bottom: 10px;
     width: 150px;
+}
+
+input {
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  width: 130px;
+  border-radius: 3px;
+  border: 1px solid rgb(169, 169, 169);
 }
 
 label {

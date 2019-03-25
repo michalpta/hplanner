@@ -39,6 +39,7 @@ export default {
   methods: {
     handleSubmit({ city, month }) {
       this.searching = true;
+      this.showTrip = false;
       setTimeout(() => {
         this.searching = false
         this.city = city;
