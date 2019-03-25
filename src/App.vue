@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <Map />
-    <Destination :cities="cities" v-if="!searching" @submitLocation="handleSubmit" />
+    <div v-if="!searching">
+      <Destination :cities="cities" v-if="!showTrip" @submitLocation="handleSubmit" />
+      <trip-details :city="tripData.city" :month="tripData.month" v-else />
+    </div>
     <Preloader v-else />
-    <trip-details :city="city" :month="month" v-if="showTrip" />
   </div>
 </template>
 
@@ -14,6 +16,7 @@ import TripDetails from './components/TripDetails.vue';
 import Preloader from './components/Preloader.vue';
 import locations from './data/locations';
 import { setTimeout } from 'timers';
+import db from './db.js';
 
 export default {
   name: 'app',
@@ -27,8 +30,8 @@ export default {
     return {
       searching: false,
       showTrip: false,
-      city: '',
-      month: '',
+      requests: [],
+      tripData: {}
     }
   },
   computed: {
@@ -40,13 +43,39 @@ export default {
     handleSubmit({ city, month, name, email }) {
       this.searching = true;
       this.showTrip = false;
+      db.collection('requests').add({
+        name,
+        email,
+        city,
+        month
+      }).then(docRef => {
+          localStorage.referenceId = docRef.id;
+      });
       setTimeout(() => {
         this.searching = false
         this.city = city;
         this.month = month;
         this.showTrip = true;
       }, 10000);
+    },
+  },
+  created() {
+    if (localStorage.referenceId) {
+      this.showTrip = true;
+      db.collection('requests').doc(localStorage.referenceId).get().then(doc => 
+      {
+        if (doc.exists) {
+          this.tripData = doc.data();
+        } else {
+          this.showTrip = false;
+        }
+      }
+      );
     }
+    db.collection('requests').onSnapshot((snapshot) => {
+      console.log(snapshot);
+      this.requests = snapshot;
+    });
   }
 };
 </script>
