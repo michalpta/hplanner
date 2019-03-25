@@ -44,8 +44,8 @@ export default {
   },
   methods: {
     submit() {
-        if (this.city !== "" && this.month !== "")
-            this.$emit("submitLocation", { city: this.city, month: this.month });
+        if (this.city !== "" && this.month !== "" && this.name !== "")
+            this.$emit("submitLocation", { city: this.city, month: this.month, name: this.name, email: this.email });
     }
   }
 };
