@@ -16,7 +16,7 @@ import TripDetails from "./components/TripDetails.vue";
 import Preloader from "./components/Preloader.vue";
 import locations from "./data/locations";
 import { setTimeout } from "timers";
-import db from "./db.js";
+import { getRequestsCollection, getRequestById } from "./firebase.js";
 import sendDataToOrch from "./services/httpService.js";
 
 export default {
@@ -44,7 +44,7 @@ export default {
     handleSubmit({ city, month, name, email }) {
       this.searching = true;
       this.showTrip = false;
-      db.collection("requests")
+      getRequestsCollection()
         .add({
           name,
           email,
@@ -55,8 +55,7 @@ export default {
         .then(docRef => {
           localStorage.referenceId = docRef.id;
           // sendDataToOrch();
-          db.collection("requests")
-            .doc(localStorage.referenceId)
+          getRequestById(localStorage.referenceId)
             .get()
             .then(doc => {
               if (doc.exists) {
@@ -77,8 +76,7 @@ export default {
   created() {
     if (localStorage.referenceId) {
       this.showTrip = true;
-      db.collection("requests")
-        .doc(localStorage.referenceId)
+      getRequestById(localStorage.referenceId)
         .get()
         .then(doc => {
           if (doc.exists) {
@@ -88,7 +86,7 @@ export default {
           }
         });
     }
-    db.collection("requests").onSnapshot(snapshot => {
+    getRequestsCollection().onSnapshot(snapshot => {
       this.requests = snapshot;
     });
   }

@@ -11,7 +11,7 @@
 
 <script>
 import { LCircle } from "vue2-leaflet";
-import db from "../db.js";
+import { getRequestsForCity } from "../firebase.js";
 import { setTimeout } from "timers";
 
 export default {
@@ -28,13 +28,12 @@ export default {
   },
   mounted() {
     if (this.name) {
-      db.collection("requests")
-        .where("city", "==", this.name)
+      getRequestsForCity(this.name)
         .onSnapshot(snapshot => {
           if (this.hits !== -1 && snapshot.docs.length !== this.hits) {
             this.hits = snapshot.docs.length;
-            this.radius = 90000;
-            setTimeout(() => (this.radius = 45000), 500);
+            this.radius = this.radius * 2;
+            setTimeout(() => (this.radius = this.radius / 2), 500);
           } else {
               this.hits = 0;
           }
