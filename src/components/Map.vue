@@ -3,12 +3,11 @@
     <l-map
       style="height: 100%; width: 100%;"
       :zoom="zoom"
-      :minZoom="zoom"
-      :maxZoom="zoom"
       :center="center"
       @update:zoom="zoomUpdated"
       @update:center="centerUpdated"
       @update:bounds="boundsUpdated"
+      ref="map"
     >
       <l-tile-layer :url="url"></l-tile-layer>
       <l-circle :lat-lng="circle.center" :radius="90000" :color="'#0098cc'"/>
@@ -24,6 +23,7 @@
 </template>
 
 <script>
+import * as L from 'leaflet';
 import { LMap, LTileLayer, LCircle } from "vue2-leaflet";
 import MapCircle from './MapCircle.vue';
 import locations from '../data/locations';
@@ -46,7 +46,7 @@ export default {
         center: [50.0470, 20.0047],
         radius: 4500,
         color: '#0098CC'
-      }
+      },
     };
   },
   computed: {
@@ -63,6 +63,11 @@ export default {
     },
     boundsUpdated(bounds) {
       this.bounds = bounds;
+    },
+    showTripDetails(city) {
+      const dest = locations.filter(c => c.name === city)[0];
+      let group = L.latLngBounds([this.center, dest.location]);
+      this.$refs.map.fitBounds(group);
     }
   },
 };

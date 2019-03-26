@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Map/>
+    <Map ref="map"/>
     <div v-if="!searching">
       <Destination :cities="cities" v-if="!showTrip" @submitLocation="handleSubmit"/>
       <trip-details :city="tripData.city" :month="tripData.month" v-else/>
@@ -54,36 +54,38 @@ export default {
         .then(docRef => {
           localStorage.referenceId = docRef.id;
           // sendDataToOrch();
-          getRequestById(localStorage.referenceId)
-            .get()
-            .then(doc => {
-              if (doc.exists) {
-                this.tripData = doc.data();
-              } else {
-                this.showTrip = false;
+          getRequestById(localStorage.referenceId).onSnapshot(doc => {
+            if (doc.exists) {
+              const data = doc.data();
+              if (data.status === "processing") {
+                this.searching = true;
+              } else if (data.status === "done") {
+                this.searching = false;
+                this.tripData = data;
+                this.showTrip = true;
+                this.$refs.map.showTripDetails(this.tripData.city);
               }
-            });
+            }
+          });
         });
-      setTimeout(() => {
-        this.searching = false;
-        this.city = city;
-        this.month = month;
-        this.showTrip = true;
-      }, 10000);
     }
   },
   created() {
     if (localStorage.referenceId) {
       this.showTrip = true;
-      getRequestById(localStorage.referenceId)
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            this.tripData = doc.data();
-          } else {
-            this.showTrip = false;
+      getRequestById(localStorage.referenceId).onSnapshot(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          if (data.status === "processing") {
+            this.searching = true;
+          } else if (data.status === "done") {
+            this.searching = false;
+            this.tripData = data;
+            this.showTrip = true;
+            this.$refs.map.showTripDetails(this.tripData.city);
           }
-        });
+        }
+      });
     }
   }
 };

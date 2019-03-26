@@ -4,15 +4,13 @@
     :radius="radius"
     :color="color"
     :fill-color="color"
-    :className="'circle-progress'"
-    ref="circle"
+    :className="'map-circle'"
   />
 </template>
 
 <script>
 import { LCircle } from "vue2-leaflet";
 import { getRequestsForCity } from "../firebase.js";
-import { setTimeout } from "timers";
 
 export default {
   components: {
@@ -23,7 +21,7 @@ export default {
     return {
       color: "red",
       radius: 90000,
-      hits: 0
+      hits: 0,
     };
   },
   mounted() {
@@ -60,24 +58,9 @@ export default {
 </script>
 
 <style>
-.circle-progress {
-  background: linear-gradient(to right, #9b59b6 50%, #34495e 50%);
+.map-circle {
   transition-property: stroke, fill, d;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
-}
-
-.circle-progress:before {
-  border-radius: 0 100% 100% 0 / 50%;
-  content: "";
-  display: block;
-  height: 100%;
-  margin-left: 50%;
-  -webkit-transform-origin: left;
-  transform-origin: left;
-
-  background: #34495e;
-  -webkit-transform: rotate(-270deg);
-  transform: rotate(-270deg);
 }
 </style>
