@@ -10,7 +10,7 @@
   >
     <l-tile-layer :url="url"></l-tile-layer>
     <map-circle :center="circle.center" :radius="circle.radius * 10" :color="circle.color" />
-    <map-circle v-for="(location, index) of cities" :key="index" :center="location.location" :radius="circle.radius * 10" :color="'blue'" />
+    <map-circle v-for="(location, index) of cities" :key="index" :center="location.location" :radius="circle.radius * 10" :color="'red'" />
   </l-map>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
       circle: {
         center: [50.0470, 20.0047],
         radius: 4500,
-        color: 'red'
+        color: '#0098CC'
       }
     };
   },
