@@ -17,6 +17,7 @@ import Preloader from './components/Preloader.vue';
 import locations from './data/locations';
 import { setTimeout } from 'timers';
 import db from './db.js';
+import sendDataToOrch from './services/httpService.js';
 
 export default {
   name: 'app',
@@ -50,6 +51,7 @@ export default {
         month
       }).then(docRef => {
           localStorage.referenceId = docRef.id;
+          // sendDataToOrch();
       });
       setTimeout(() => {
         this.searching = false
