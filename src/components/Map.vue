@@ -11,7 +11,7 @@
       @update:bounds="boundsUpdated"
     >
       <l-tile-layer :url="url"></l-tile-layer>
-      <l-circle :lat-lng="circle.center" :radius="45000" :color="'#0098cc'"/>
+      <l-circle :lat-lng="circle.center" :radius="90000" :color="'#0098cc'"/>
       <map-circle
         v-for="(location, index) of cities"
         :key="index"

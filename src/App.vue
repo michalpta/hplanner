@@ -31,7 +31,6 @@ export default {
     return {
       searching: false,
       showTrip: false,
-      requests: [],
       tripData: {}
     };
   },
@@ -86,9 +85,6 @@ export default {
           }
         });
     }
-    getRequestsCollection().onSnapshot(snapshot => {
-      this.requests = snapshot;
-    });
   }
 };
 </script>
