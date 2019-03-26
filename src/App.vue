@@ -1,26 +1,26 @@
 <template>
   <div id="app">
-    <Map />
+    <Map/>
     <div v-if="!searching">
-      <Destination :cities="cities" v-if="!showTrip" @submitLocation="handleSubmit" />
-      <trip-details :city="tripData.city" :month="tripData.month" v-else />
+      <Destination :cities="cities" v-if="!showTrip" @submitLocation="handleSubmit"/>
+      <trip-details :city="tripData.city" :month="tripData.month" v-else/>
     </div>
-    <Preloader v-else />
+    <Preloader v-else/>
   </div>
 </template>
 
 <script>
-import Map from './components/Map.vue';
-import Destination from './components/Destination.vue';
-import TripDetails from './components/TripDetails.vue';
-import Preloader from './components/Preloader.vue';
-import locations from './data/locations';
-import { setTimeout } from 'timers';
-import db from './db.js';
-import sendDataToOrch from './services/httpService.js';
+import Map from "./components/Map.vue";
+import Destination from "./components/Destination.vue";
+import TripDetails from "./components/TripDetails.vue";
+import Preloader from "./components/Preloader.vue";
+import locations from "./data/locations";
+import { setTimeout } from "timers";
+import db from "./db.js";
+import sendDataToOrch from "./services/httpService.js";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Map,
     Destination,
@@ -33,49 +33,62 @@ export default {
       showTrip: false,
       requests: [],
       tripData: {}
-    }
+    };
   },
   computed: {
     cities() {
       return locations;
-    },
+    }
   },
   methods: {
     handleSubmit({ city, month, name, email }) {
       this.searching = true;
       this.showTrip = false;
-      db.collection('requests').add({
-        name,
-        email,
-        city,
-        month
-      }).then(docRef => {
+      db.collection("requests")
+        .add({
+          name,
+          email,
+          city,
+          month,
+          status: "processing"
+        })
+        .then(docRef => {
           localStorage.referenceId = docRef.id;
           // sendDataToOrch();
-      });
+          db.collection("requests")
+            .doc(localStorage.referenceId)
+            .get()
+            .then(doc => {
+              if (doc.exists) {
+                this.tripData = doc.data();
+              } else {
+                this.showTrip = false;
+              }
+            });
+        });
       setTimeout(() => {
-        this.searching = false
+        this.searching = false;
         this.city = city;
         this.month = month;
         this.showTrip = true;
       }, 10000);
-    },
+    }
   },
   created() {
     if (localStorage.referenceId) {
       this.showTrip = true;
-      db.collection('requests').doc(localStorage.referenceId).get().then(doc => 
-      {
-        if (doc.exists) {
-          this.tripData = doc.data();
-        } else {
-          this.showTrip = false;
-        }
-      }
-      );
+      db.collection("requests")
+        .doc(localStorage.referenceId)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            this.tripData = doc.data();
+          } else {
+            this.showTrip = false;
+          }
+        });
     }
-    db.collection('requests').onSnapshot((snapshot) => {
-      console.log(snapshot);
+    db.collection("requests").onSnapshot(snapshot => {
       this.requests = snapshot;
     });
   }
@@ -84,7 +97,7 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

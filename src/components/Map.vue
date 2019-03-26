@@ -1,22 +1,30 @@
 <template>
-<div style="width: 100%; height: 600px;">
-  <l-map
-    style="height: 100%; width: 100%;"
-    :zoom="zoom"
-    :center="center"
-    @update:zoom="zoomUpdated"
-    @update:center="centerUpdated"
-    @update:bounds="boundsUpdated"
-  >
-    <l-tile-layer :url="url"></l-tile-layer>
-    <map-circle :center="circle.center" :radius="circle.radius * 10" :color="circle.color" />
-    <map-circle v-for="(location, index) of cities" :key="index" :center="location.location" :radius="circle.radius * 10" :color="'red'" />
-  </l-map>
+  <div style="width: 100%; height: 600px;">
+    <l-map
+      style="height: 100%; width: 100%;"
+      :zoom="zoom"
+      :minZoom="zoom"
+      :maxZoom="zoom"
+      :center="center"
+      @update:zoom="zoomUpdated"
+      @update:center="centerUpdated"
+      @update:bounds="boundsUpdated"
+    >
+      <l-tile-layer :url="url"></l-tile-layer>
+      <l-circle :lat-lng="circle.center" :radius="45000" :color="'#0098cc'"/>
+      <map-circle
+        v-for="(location, index) of cities"
+        :key="index"
+        :name="location.name"
+        :center="location.location"
+        :color="'red'"
+      />
+    </l-map>
   </div>
 </template>
 
 <script>
-import { LMap, LTileLayer } from "vue2-leaflet";
+import { LMap, LTileLayer, LCircle } from "vue2-leaflet";
 import MapCircle from './MapCircle.vue';
 import locations from '../data/locations';
 
@@ -25,6 +33,7 @@ export default {
     LMap,
     LTileLayer,
     MapCircle,
+    LCircle
   },
   data() {
     return {
