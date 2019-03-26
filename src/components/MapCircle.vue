@@ -21,17 +21,20 @@ export default {
     return {
       color: "red",
       radius: 90000,
-      hits: 0,
+      hits: -1,
     };
   },
   mounted() {
     if (this.name) {
       getRequestsForCity(this.name)
         .onSnapshot(snapshot => {
+          if (this.hits === -1) {
+            this.hits = snapshot.docs.length;
+          }
           if (snapshot.docs.length !== this.hits) {
             this.hits = snapshot.docs.length;
-            this.radius = this.radius * 2;
-            setTimeout(() => (this.radius = this.radius / 2), 500);
+            this.radius = this.radius * 2
+            setTimeout(() => this.radius = this.radius / 2, 500);
           }
           if (snapshot.docs.length > 0) {
             let processing = 0;

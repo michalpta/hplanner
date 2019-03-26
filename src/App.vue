@@ -84,6 +84,8 @@ export default {
             this.showTrip = true;
             this.$refs.map.showTripDetails(this.tripData.city);
           }
+        } else {
+          localStorage.removeItem('referenceId');
         }
       });
     }
