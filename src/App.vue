@@ -6,13 +6,12 @@
 </template>
 
 <script>
-import Map from "./components/Map/Map.vue";
+import Map from './components/Map/Map.vue';
 import Planner from './components/Planner/Planner.vue';
-import { getRequestsCollection, getRequestById } from "./firebase.js";
-import sendDataToOrch from "./services/httpService.js";
+import { getRequestsCollection, getRequestById } from './firebase';
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
     Map,
     Planner,
@@ -21,11 +20,13 @@ export default {
     return {
       searching: false,
       showTrip: false,
-      tripData: {}
+      tripData: {},
     };
   },
   methods: {
-    handleSubmit({ city, month, name, email }) {
+    handleSubmit({
+      city, month, name, email,
+    }) {
       this.searching = true;
       this.showTrip = false;
       getRequestsCollection()
@@ -34,17 +35,17 @@ export default {
           email,
           city,
           month,
-          status: "processing"
+          status: 'processing',
         })
-        .then(docRef => {
+        .then((docRef) => {
           localStorage.referenceId = docRef.id;
           // sendDataToOrch();
-          getRequestById(localStorage.referenceId).onSnapshot(doc => {
+          getRequestById(localStorage.referenceId).onSnapshot((doc) => {
             if (doc.exists) {
               const data = doc.data();
-              if (data.status === "processing") {
+              if (data.status === 'processing') {
                 this.searching = true;
-              } else if (data.status === "done") {
+              } else if (data.status === 'done') {
                 this.searching = false;
                 this.tripData = data;
                 this.showTrip = true;
@@ -53,17 +54,17 @@ export default {
             }
           });
         });
-    }
+    },
   },
   created() {
     if (localStorage.referenceId) {
       this.showTrip = true;
-      getRequestById(localStorage.referenceId).onSnapshot(doc => {
+      getRequestById(localStorage.referenceId).onSnapshot((doc) => {
         if (doc.exists) {
           const data = doc.data();
-          if (data.status === "processing") {
+          if (data.status === 'processing') {
             this.searching = true;
-          } else if (data.status === "done") {
+          } else if (data.status === 'done') {
             this.searching = false;
             this.tripData = data;
             this.showTrip = true;
@@ -74,7 +75,7 @@ export default {
         }
       });
     }
-  }
+  },
 };
 </script>
 

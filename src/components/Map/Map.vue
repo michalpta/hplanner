@@ -24,7 +24,7 @@
 
 <script>
 import * as L from 'leaflet';
-import { LMap, LTileLayer, LCircle } from "vue2-leaflet";
+import { LMap, LTileLayer, LCircle } from 'vue2-leaflet';
 import MapCircle from './MapCircle.vue';
 import locations from '../../data/locations';
 
@@ -33,19 +33,19 @@ export default {
     LMap,
     LTileLayer,
     MapCircle,
-    LCircle
+    LCircle,
   },
   data() {
     return {
       // url: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 4,
       center: [50.0470, 20.0047],
       bounds: null,
       circle: {
         center: [50.0470, 20.0047],
         radius: 4500,
-        color: '#0098CC'
+        color: '#0098CC',
       },
     };
   },
@@ -66,9 +66,9 @@ export default {
     },
     showTripDetails(city) {
       const dest = locations.filter(c => c.name === city)[0];
-      let group = L.latLngBounds([this.center, dest.location]);
+      const group = L.latLngBounds([this.center, dest.location]);
       this.$refs.map.fitBounds(group);
-    }
+    },
   },
 };
 </script>

@@ -9,22 +9,22 @@
 </template>
 
 <script>
-import Destination from "./Destination.vue";
-import Preloader from "./Preloader.vue";
-import TripDetails from "./TripDetails.vue";
+import Destination from './Destination.vue';
+import Preloader from './Preloader.vue';
+import TripDetails from './TripDetails.vue';
 
 export default {
   components: {
     Destination,
     Preloader,
-    TripDetails
+    TripDetails,
   },
-  props: ["showTrip", "tripData", "searching"],
+  props: ['showTrip', 'tripData', 'searching'],
   methods: {
     handleSubmit(formData) {
       this.$emit('submitLocation', formData);
-    }
-  }
+    },
+  },
 };
 </script>
 

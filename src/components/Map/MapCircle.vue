@@ -9,17 +9,17 @@
 </template>
 
 <script>
-import { LCircle } from "vue2-leaflet";
-import { getRequestsForCity } from "../../firebase.js";
+import { LCircle } from 'vue2-leaflet';
+import { getRequestsForCity } from '../../firebase';
 
 export default {
   components: {
-    LCircle
+    LCircle,
   },
-  props: ["center", "name"],
+  props: ['center', 'name'],
   data() {
     return {
-      color: "red",
+      color: 'red',
       radius: 90000,
       hits: -1,
     };
@@ -27,36 +27,36 @@ export default {
   mounted() {
     if (this.name) {
       getRequestsForCity(this.name)
-        .onSnapshot(snapshot => {
+        .onSnapshot((snapshot) => {
           if (this.hits === -1) {
             this.hits = snapshot.docs.length;
           }
           if (snapshot.docs.length !== this.hits) {
             this.hits = snapshot.docs.length;
-            this.radius = this.radius * 2
-            setTimeout(() => this.radius = this.radius / 2, 500);
+            this.radius = this.radius * 2;
+            setTimeout(() => { this.radius = this.radius / 2; }, 500);
           }
           if (snapshot.docs.length > 0) {
             let processing = 0;
             let done = 0;
-            snapshot.forEach(doc => {
-              if (doc.data().status === "processing") {
-                processing++;
-              } else if (doc.data().status === "done") {
-                done++;
+            snapshot.forEach((doc) => {
+              if (doc.data().status === 'processing') {
+                processing += 1;
+              } else if (doc.data().status === 'done') {
+                done += 1;
               }
             });
             if (done === snapshot.docs.length) {
-              this.color = "green";
+              this.color = 'green';
             } else if (processing > 0) {
-              this.color = "yellow";
+              this.color = 'yellow';
             } else {
-              this.color = "red";
+              this.color = 'red';
             }
           }
         });
     }
-  }
+  },
 };
 </script>
 

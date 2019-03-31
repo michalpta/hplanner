@@ -25,16 +25,16 @@
 </template>
 
 <script>
-import months from "../../data/months";
+import months from '../../data/months';
 import locations from '../../data/locations';
 
 export default {
   data() {
     return {
-      city: "",
-      month: "",
-      name: "",
-      email: "",
+      city: '',
+      month: '',
+      name: '',
+      email: '',
     };
   },
   computed: {
@@ -43,14 +43,17 @@ export default {
     },
     cities() {
       return locations;
-    }
+    },
   },
   methods: {
     submit() {
-        if (this.city !== "" && this.month !== "" && this.name !== "")
-            this.$emit("submitLocation", { city: this.city, month: this.month, name: this.name, email: this.email });
-    }
-  }
+      if (this.city !== '' && this.month !== '' && this.name !== '') {
+        this.$emit('submitLocation', {
+          city: this.city, month: this.month, name: this.name, email: this.email,
+        });
+      }
+    },
+  },
 };
 </script>
 
