@@ -10,7 +10,7 @@
 
 <script>
 import { LCircle } from "vue2-leaflet";
-import { getRequestsForCity } from "../firebase.js";
+import { getRequestsForCity } from "../../firebase.js";
 
 export default {
   components: {

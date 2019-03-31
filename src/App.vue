@@ -1,21 +1,13 @@
 <template>
   <div id="app">
     <Map ref="map"/>
-    <div v-if="!searching">
-      <Destination :cities="cities" v-if="!showTrip" @submitLocation="handleSubmit"/>
-      <trip-details :city="tripData.city" :month="tripData.month" v-else/>
-    </div>
-    <Preloader v-else/>
+    <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" />
   </div>
 </template>
 
 <script>
-import Map from "./components/Map.vue";
-import Destination from "./components/Destination.vue";
-import TripDetails from "./components/TripDetails.vue";
-import Preloader from "./components/Preloader.vue";
-import locations from "./data/locations";
-import { setTimeout } from "timers";
+import Map from "./components/Map/Map.vue";
+import Planner from './components/Planner/Planner.vue';
 import { getRequestsCollection, getRequestById } from "./firebase.js";
 import sendDataToOrch from "./services/httpService.js";
 
@@ -23,9 +15,7 @@ export default {
   name: "app",
   components: {
     Map,
-    Destination,
-    TripDetails,
-    Preloader
+    Planner,
   },
   data() {
     return {
@@ -33,11 +23,6 @@ export default {
       showTrip: false,
       tripData: {}
     };
-  },
-  computed: {
-    cities() {
-      return locations;
-    }
   },
   methods: {
     handleSubmit({ city, month, name, email }) {

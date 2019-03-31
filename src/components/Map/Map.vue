@@ -26,7 +26,7 @@
 import * as L from 'leaflet';
 import { LMap, LTileLayer, LCircle } from "vue2-leaflet";
 import MapCircle from './MapCircle.vue';
-import locations from '../data/locations';
+import locations from '../../data/locations';
 
 export default {
   components: {

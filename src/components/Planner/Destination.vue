@@ -6,7 +6,7 @@
     </div>
     <div>
       <label>Email</label>
-      <input v-model="email" />
+      <input v-model="email" type="email" />
     </div>
     <div>
       <label>City</label>
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import months from "../data/months";
+import months from "../../data/months";
+import locations from '../../data/locations';
 
 export default {
-  props: ["cities"],
   data() {
     return {
       city: "",
@@ -40,6 +40,9 @@ export default {
   computed: {
     dates() {
       return months;
+    },
+    cities() {
+      return locations;
     }
   },
   methods: {
