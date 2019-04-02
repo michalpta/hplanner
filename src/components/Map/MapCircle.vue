@@ -5,16 +5,21 @@
     :color="color"
     :fill-color="color"
     :className="'map-circle'"
-  />
+  >
+    <l-tooltip>
+      {{name}}
+    </l-tooltip>
+  </l-circle>
 </template>
 
 <script>
-import { LCircle } from 'vue2-leaflet';
+import { LCircle, LTooltip } from 'vue2-leaflet';
 import { getRequestsForCity } from '../../firebase';
 
 export default {
   components: {
     LCircle,
+    LTooltip
   },
   props: ['center', 'name'],
   data() {

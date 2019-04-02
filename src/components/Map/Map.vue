@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; height: 600px;">
+  <div class="map-wrapper">
     <l-map
       style="height: 100%; width: 100%;"
       :zoom="zoom"
@@ -23,36 +23,36 @@
 </template>
 
 <script>
-import * as L from 'leaflet';
-import { LMap, LTileLayer, LCircle } from 'vue2-leaflet';
-import MapCircle from './MapCircle.vue';
-import locations from '../../data/locations';
+import * as L from "leaflet";
+import { LMap, LTileLayer, LCircle } from "vue2-leaflet";
+import MapCircle from "./MapCircle.vue";
+import locations from "../../data/locations";
 
 export default {
   components: {
     LMap,
     LTileLayer,
     MapCircle,
-    LCircle,
+    LCircle
   },
   data() {
     return {
       // url: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       zoom: 4,
-      center: [50.0470, 20.0047],
+      center: [50.047, 20.0047],
       bounds: null,
       circle: {
-        center: [50.0470, 20.0047],
+        center: [50.047, 20.0047],
         radius: 4500,
-        color: '#0098CC',
-      },
+        color: "#0098CC"
+      }
     };
   },
   computed: {
     cities() {
       return locations;
-    },
+    }
   },
   methods: {
     zoomUpdated(zoom) {
@@ -68,10 +68,20 @@ export default {
       const dest = locations.filter(c => c.name === city)[0];
       const group = L.latLngBounds([this.center, dest.location]);
       this.$refs.map.fitBounds(group);
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
+<style lang="scss">
+.map-wrapper {
+  width: 100%;
+  height: 600px;
+
+  @media screen and (max-width: 980px) {
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 </style>
