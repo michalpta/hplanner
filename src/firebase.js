@@ -20,8 +20,13 @@ function getRequestsForCity(city) {
   return getRequestsCollection().where('city', '==', city);
 }
 
+function getToken() {
+  return db.collection('orchToken').doc('1');
+}
+
 export {
   getRequestById,
   getRequestsCollection,
   getRequestsForCity,
+  getToken
 };

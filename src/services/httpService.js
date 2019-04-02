@@ -1,13 +1,16 @@
 import Axios from 'axios';
+import https from 'https';
 
-export default function sendDataToOrch(name, email, city, month, refId) {
-  var token = "";
-  var config = {
-    headers: { 'Authorization': "Bearer " + token }
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+export default function sendDataToOrch(token, name, email, city, month, refId) {
+  let config = {
+    headers: { 'Authorization': "Bearer " + token },
+    httpsAgent: new https.Agent({ rejectUnauthorized: false })
   };
-  Axios.post("https://platform.uipath.com/odata/Queues/UiPathODataSvc.AddQueueItem", {
+  Axios.post("https://35.246.134.35/odata/Queues/UiPathODataSvc.AddQueueItem", {
     "itemData": {
-      "Name": "TEST-Queue",
+      "Name": "testqueue",
       "Priority": "High",
       "SpecificContent": {
           name,

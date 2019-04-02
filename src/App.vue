@@ -8,7 +8,7 @@
 <script>
 import Map from './components/Map/Map.vue';
 import Planner from './components/Planner/Planner.vue';
-import { getRequestsCollection, getRequestById } from './firebase';
+import { getRequestsCollection, getRequestById, getToken } from './firebase';
 import sendDataToOrch from './services/httpService';
 
 export default {
@@ -22,6 +22,7 @@ export default {
       searching: false,
       showTrip: false,
       tripData: {},
+      authToken: '',
     };
   },
   methods: {
@@ -40,7 +41,7 @@ export default {
         })
         .then((docRef) => {
           localStorage.referenceId = docRef.id;
-          sendDataToOrch(name, email, city, month, docRef.id);
+          sendDataToOrch(this.authToken, name, email, city, month, docRef.id);
           getRequestById(localStorage.referenceId).onSnapshot((doc) => {
             if (doc.exists) {
               const data = doc.data();
@@ -76,6 +77,7 @@ export default {
         }
       });
     }
+    getToken().get().then(doc => this.authToken = doc.data().token);
   },
 };
 </script>
