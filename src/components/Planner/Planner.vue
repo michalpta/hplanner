@@ -2,7 +2,7 @@
   <div>
     <div v-if="!searching">
       <Destination v-if="!showTrip" @submitLocation="handleSubmit"/>
-      <trip-details :city="tripData.city" :month="tripData.month" v-else/>
+      <trip-details :trip-data="tripData" v-else/>
     </div>
     <Preloader v-else/>
   </div>
