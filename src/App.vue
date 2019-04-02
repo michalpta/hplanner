@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Map ref="map"/>
-    <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" />
+    <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" @submitLocation="handleSubmit" />
   </div>
 </template>
 
@@ -9,6 +9,7 @@
 import Map from './components/Map/Map.vue';
 import Planner from './components/Planner/Planner.vue';
 import { getRequestsCollection, getRequestById } from './firebase';
+import sendDataToOrch from './services/httpService';
 
 export default {
   name: 'app',
@@ -39,7 +40,7 @@ export default {
         })
         .then((docRef) => {
           localStorage.referenceId = docRef.id;
-          // sendDataToOrch();
+          sendDataToOrch(name, email, city, month, docRef.id);
           getRequestById(localStorage.referenceId).onSnapshot((doc) => {
             if (doc.exists) {
               const data = doc.data();
