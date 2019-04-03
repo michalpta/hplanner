@@ -24,7 +24,7 @@
 
 <script>
 import * as L from "leaflet";
-import { LMap, LTileLayer, LCircle } from "vue2-leaflet";
+import { LMap, LTileLayer, LCircle, LMarker } from "vue2-leaflet";
 import MapCircle from "./MapCircle.vue";
 import locations from "../../data/locations";
 
