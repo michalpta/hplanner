@@ -76,12 +76,6 @@ export default {
 <style lang="scss">
 .map-wrapper {
   width: 100%;
-  height: 600px;
-
-  @media screen and (max-width: 980px) {
-    width: 90%;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+  height: 100vh;
 }
 </style>

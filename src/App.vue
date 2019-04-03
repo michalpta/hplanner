@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <Map ref="map"/>
-    <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" @submitLocation="handleSubmit" />
+    <div class="planner-section" :class="{ 'map-section--hidden': !mapHidden, 'map-section--shown': mapHidden }">
+      <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" @submitLocation="handleSubmit" />
+    </div>
+    <div class="map-section" :class="{ 'map-section--hidden': mapHidden, 'map-section--shown': !mapHidden }">
+      <Map ref="map"/>
+    </div>
+    <button class="toggle-map-button" @click="mapHidden = !mapHidden" title="Toggle map"><i class="far fa-map"></i></button>
   </div>
 </template>
 
@@ -23,6 +28,7 @@ export default {
       showTrip: false,
       tripData: {},
       authToken: '',
+      mapHidden: true,
     };
   },
   methods: {
@@ -90,5 +96,57 @@ export default {
   text-align: center;
   color: #2c3e50;
   padding: 0;
+  display: flex;
+  position: relative;
+}
+
+body {
+  margin: 0;
+}
+
+.map-section {
+  width: 75%;
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+
+    &--hidden {
+      display: none;
+    }
+
+    &--shown {
+      display: block;
+      z-index: 15;
+    }
+  }
+}
+.planner-section {
+  width: 25%;
+  height: 100vh;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
+}
+
+.toggle-map-button {
+  display: none;
+  @media screen and (max-width: 1024px) {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    bottom: -15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid darken(#0098cc, 10%);
+    background: #0098cc;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 30px;
+    padding: 15px;
+    transition: background 0.3s ease-in-out;
+    &:hover {
+      background: darken(#0098cc, 5%);
+    }
+  }
 }
 </style>
