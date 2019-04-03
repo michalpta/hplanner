@@ -39,9 +39,9 @@ export default {
 .trip-card {
   padding: 10px;
   text-align: left;
-  color: #fff;
+  color: #333;
   border-radius: 4px;
-  background: rgba(0, 152, 204, 0.7);
+  box-shadow: 0 1px 2px gray;
 }
 
 .trip__normal-text {
