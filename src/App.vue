@@ -14,7 +14,6 @@
 import Map from './components/Map/Map.vue';
 import Planner from './components/Planner/Planner.vue';
 import { getRequestsCollection, getRequestById, getToken } from './firebase';
-import sendDataToOrch from './services/httpService';
 
 export default {
   name: 'app',
@@ -47,7 +46,6 @@ export default {
         })
         .then((docRef) => {
           localStorage.referenceId = docRef.id;
-          sendDataToOrch(this.authToken, name, email, city, month, docRef.id);
           getRequestById(localStorage.referenceId).onSnapshot((doc) => {
             if (doc.exists) {
               const data = doc.data();
@@ -95,6 +93,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background: #F3F5F8;
   padding: 0;
   display: flex;
   position: relative;
