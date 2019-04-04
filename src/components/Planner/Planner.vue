@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="planner">
+    <logo />
     <div v-if="!searching">
       <Destination v-if="!showTrip" @submitLocation="handleSubmit"/>
       <trip-details :trip-data="tripData" v-else/>
@@ -12,12 +13,14 @@
 import Destination from './Destination.vue';
 import Preloader from './Preloader.vue';
 import TripDetails from './TripDetails.vue';
+import Logo from './Logo.vue';
 
 export default {
   components: {
     Destination,
     Preloader,
     TripDetails,
+    Logo,
   },
   props: ['showTrip', 'tripData', 'searching'],
   methods: {
@@ -28,5 +31,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .planner {
+    padding: 35px 80px;
+    background: #FFFFFF;
+    height: 100vh;
+  }
 </style>
+

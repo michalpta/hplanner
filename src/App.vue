@@ -86,12 +86,10 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  background: #F3F5F8;
   padding: 0;
   display: flex;
   position: relative;
@@ -103,6 +101,7 @@ body {
 
 .map-section {
   width: 75%;
+  z-index: 2;
 
   @media screen and (max-width: 1024px) {
     width: 100%;
@@ -120,6 +119,8 @@ body {
 .planner-section {
   width: 25%;
   height: 100vh;
+  box-shadow: 3px 0px 16px rgba(0, 0, 0, 0.2);
+  z-index: 3;
   @media screen and (max-width: 1024px) {
     width: 100%;
   }
