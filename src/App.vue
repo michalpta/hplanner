@@ -13,7 +13,7 @@
 <script>
 import Map from './components/Map/Map.vue';
 import Planner from './components/Planner/Planner.vue';
-import { getRequestsCollection, getRequestById, getToken } from './firebase';
+import { getRequestsCollection, getRequestById } from './firebase';
 
 export default {
   name: 'app',
@@ -26,7 +26,6 @@ export default {
       searching: false,
       showTrip: false,
       tripData: {},
-      authToken: '',
       mapHidden: true,
     };
   },
@@ -81,7 +80,6 @@ export default {
         }
       });
     }
-    getToken().get().then(doc => this.authToken = doc.data().token);
   },
 };
 </script>
