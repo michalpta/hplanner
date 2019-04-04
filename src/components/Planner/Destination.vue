@@ -1,40 +1,77 @@
 <template>
-  <div style="margin-top: 10px;">
-    <div>
+  <div class="form-wrapper">
+    <div class="form-group">
       <label>Name</label>
-      <input v-model="name" />
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control" placeholder="Enter name" v-model="name">
+      </div>
     </div>
-    <div>
+    <div class="form-group">
       <label>Email</label>
-      <input v-model="email" type="email" />
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+        <input type="email" class="form-control" placeholder="Enter mail" v-model="email">
+      </div>
     </div>
-    <div>
-      <label>City</label>
-      <select v-model="city">
-        <option v-for="(city, index) of cities" :key="index">{{ city.name }}</option>
-      </select>
+    <div class="form-group">
+      <label>Destination</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-map-marker-alt"></i>
+          </span>
+        </div>
+        <select class="form-control" v-model="city">
+          <option value selected disabled>Select city</option>
+          <option v-for="(city, index) of cities" :key="index">{{ city.name }}</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <label>Date</label>
-      <select v-model="month">
-        <option v-for="(date, index) of dates" :key="index">{{ date }}</option>
-      </select>
+    <div class="form-group">
+      <label>Month</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fas fa-calendar"></i>
+          </span>
+        </div>
+        <select class="form-control" v-model="month">
+          <option value selected disabled>Select month</option>
+          <option v-for="(date, index) of dates" :key="index">{{ date }}</option>
+        </select>
+      </div>
     </div>
-    <button @click="submit" :disabled="city && month ? false : true">Submit</button>
+    <button
+      class="btn btn-outline-primary btn-block submit-button"
+      @click="submit"
+      :disabled="city && month && name ? false : true"
+    >
+      Submit
+      <i class="fas fa-search search-icon"></i>
+    </button>
   </div>
 </template>
 
 <script>
-import months from '../../data/months';
-import locations from '../../data/locations';
+import months from "../../data/months";
+import locations from "../../data/locations";
 
 export default {
   data() {
     return {
-      city: '',
-      month: '',
-      name: '',
-      email: '',
+      city: "",
+      month: "",
+      name: "",
+      email: ""
     };
   },
   computed: {
@@ -43,57 +80,47 @@ export default {
     },
     cities() {
       return locations;
-    },
+    }
   },
   methods: {
     submit() {
-      if (this.city !== '' && this.month !== '' && this.name !== '') {
-        this.$emit('submitLocation', {
-          city: this.city, month: this.month, name: this.name, email: this.email,
+      if (this.city !== "" && this.month !== "" && this.name !== "") {
+        this.$emit("submitLocation", {
+          city: this.city,
+          month: this.month,
+          name: this.name,
+          email: this.email
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.form-wrapper {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.form-group {
+  & > label {
+    margin-bottom: 0;
+  }
+}
+
+input,
 select {
-    padding: 5px 10px;
-    border-radius: 3px;
-    margin-bottom: 10px;
-    width: 150px;
+  background: #f5f4f8;
+  border-radius: 5px;
 }
 
-input {
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  width: 130px;
-  border-radius: 3px;
-  border: 1px solid rgb(169, 169, 169);
+.submit-button {
+  border-radius: 30px;
+  margin-top: 60px;
 }
 
-label {
-    display: block;
-}
-
-button {
-    padding: 10px 15px;
-    width: 150px;
-    margin-top: 10px;
-    background: green;
-    color: #fff;
-    border: 1px solid green;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    &:not(:disabled):hover {
-        background: darken(green, 10%);
-        border: 1px solid darken(green, 10%);
-    }
-
-    &:disabled:hover {
-        cursor: not-allowed;
-    }
+.search-icon {
+  margin-left: 10px;
 }
 </style>

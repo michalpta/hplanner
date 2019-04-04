@@ -100,7 +100,7 @@ body {
 }
 
 .map-section {
-  width: 75%;
+  width: 80%;
   z-index: 2;
 
   @media screen and (max-width: 1024px) {
@@ -117,7 +117,7 @@ body {
   }
 }
 .planner-section {
-  width: 25%;
+  width: 20%;
   height: 100vh;
   box-shadow: 3px 0px 16px rgba(0, 0, 0, 0.2);
   z-index: 3;
