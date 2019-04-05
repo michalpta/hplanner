@@ -1,11 +1,16 @@
 <template>
-  <div class="logo-wrapper">
-    <div class="logo">
-      <i class="fas fa-umbrella-beach"></i>
+  <div>
+    <div class="logo-wrapper">
+      <div class="logo">
+        <i class="fas fa-umbrella-beach"></i>
+      </div>
+      <div class="logo__title">
+        <div class="title__first">Holiday</div>
+        <div class="title__second">Planner</div>
+      </div>
     </div>
-    <div class="logo__title">
-      <div class="title__first">Holiday</div>
-      <div class="title__second">Planner</div>
+    <div class="wave-divider">
+      <img src="../../assets/wave.svg">
     </div>
   </div>
 </template>
@@ -17,6 +22,11 @@ export default {};
 <style lang="scss" scoped>
 .logo-wrapper {
   display: flex;
+}
+
+.wave-divider {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .logo {

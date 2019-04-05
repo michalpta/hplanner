@@ -118,6 +118,12 @@ select {
 .submit-button {
   border-radius: 30px;
   margin-top: 60px;
+  border-width: 3px;
+  font-weight: bold;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .search-icon {
