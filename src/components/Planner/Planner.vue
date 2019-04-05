@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
   .planner {
-    padding: 35px 50px;
+    padding: 40px;
     background: #FFFFFF;
     height: 100vh;
   }
