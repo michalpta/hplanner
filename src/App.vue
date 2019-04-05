@@ -25,7 +25,7 @@ export default {
     return {
       searching: false,
       showTrip: false,
-      tripData: {},
+      tripData: null,
       mapHidden: true,
     };
   },

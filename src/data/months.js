@@ -1,6 +1,5 @@
 export default [
-  'Kwiecień',
-  'Maj',
-  'Czerwiec',
-  'Lipiec',
+  'May',
+  'June',
+  'July',
 ];
