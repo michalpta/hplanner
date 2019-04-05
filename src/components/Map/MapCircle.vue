@@ -1,15 +1,10 @@
 <template>
   <l-feature-group>
-    <l-marker :lat-lng="center">
-    </l-marker>
-    <l-circle
-      :lat-lng="center"
-      :radius="radius"
-      :color="color"
-      :fill-color="color"
-    >
+    <l-marker :lat-lng="center"></l-marker>
+    <l-circle v-if="radius > 0" :lat-lng="center" :radius="radius" :color="color" :fill-color="color">
       <l-tooltip>{{name}}</l-tooltip>
     </l-circle>
+    <l-circle v-if="done > 0" :lat-lng="center" :radius="done * hitWeight" :color="'green'" :fill-color="'green'"></l-circle>
   </l-feature-group>
 </template>
 
@@ -27,41 +22,25 @@ export default {
   props: ["center", "name"],
   data() {
     return {
-      color: "red",
-      radius: 90000,
-      hits: -1
+      color: "#0C81E4",
+      radius: 0,
+      hitWeight: 10000,
+      done: 0
     };
   },
   mounted() {
     if (this.name) {
       getRequestsForCity(this.name).onSnapshot(snapshot => {
-        if (this.hits === -1) {
-          this.hits = snapshot.docs.length;
-        }
-        if (snapshot.docs.length !== this.hits) {
-          this.hits = snapshot.docs.length;
-          this.radius = this.radius * 2;
-          setTimeout(() => {
-            this.radius = this.radius / 2;
-          }, 500);
-        }
-        if (snapshot.docs.length > 0) {
-          let processing = 0;
+        const hits = snapshot.docs.length;
+        this.radius = hits * this.hitWeight;
+        if (hits > 0) {
           let done = 0;
           snapshot.forEach(doc => {
-            if (doc.data().status === "processing") {
-              processing += 1;
-            } else if (doc.data().status === "done") {
+            if (doc.data().status === "done") {
               done += 1;
             }
+            this.done = done;
           });
-          if (done === snapshot.docs.length) {
-            this.color = "green";
-          } else if (processing > 0) {
-            this.color = "yellow";
-          } else {
-            this.color = "red";
-          }
         }
       });
     }
@@ -71,7 +50,7 @@ export default {
 
 <style>
 .map-circle {
-  transition-property: stroke, fill, d;
+  transition-property: stroke, fill;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
 }
