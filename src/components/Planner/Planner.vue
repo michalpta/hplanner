@@ -11,9 +11,9 @@
 
 <script>
 import Destination from './Destination.vue';
-import Preloader from './Preloader.vue';
+import Preloader from '../shared/Preloader.vue';
 import TripDetails from './TripDetails.vue';
-import Logo from './Logo.vue';
+import Logo from '../shared/Logo.vue';
 
 export default {
   components: {
