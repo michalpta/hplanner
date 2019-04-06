@@ -32,7 +32,7 @@
         </div>
         <select class="form-control" v-model="city">
           <option value selected disabled>Wybierz miasto</option>
-          <option v-for="(city, index) of cities" :key="index" :value="city.engName">{{ city.name }}</option>
+          <option v-for="(city, index) of locations" :key="index" :value="city.engName">{{ city.name }}</option>
         </select>
       </div>
     </div>
@@ -46,7 +46,7 @@
         </div>
         <select class="form-control" v-model="month">
           <option value selected disabled>Wybierz miesiąc</option>
-          <option v-for="(date, index) of dates" :key="index" :value="date.engName">{{ date.name }}</option>
+          <option v-for="(date, index) of months" :key="index" :value="date.engName">{{ date.name }}</option>
         </select>
       </div>
     </div>
@@ -72,15 +72,9 @@ export default {
       month: '',
       name: '',
       email: '',
+      locations,
+      months,
     };
-  },
-  computed: {
-    dates() {
-      return months;
-    },
-    cities() {
-      return locations;
-    },
   },
   methods: {
     isFormValid() {
