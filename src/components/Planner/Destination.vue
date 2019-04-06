@@ -53,7 +53,7 @@
     <button
       class="btn btn-outline-primary btn-block submit-button"
       @click="submit"
-      :disabled="city && month && name ? false : true"
+      :disabled="!isFormValid()"
     >
       Szukaj
       <i class="fas fa-search search-icon"></i>
@@ -62,16 +62,16 @@
 </template>
 
 <script>
-import months from "../../data/months";
-import locations from "../../data/locations";
+import months from '../../data/months';
+import locations from '../../data/locations';
 
 export default {
   data() {
     return {
-      city: "",
-      month: "",
-      name: "",
-      email: ""
+      city: '',
+      month: '',
+      name: '',
+      email: '',
     };
   },
   computed: {
@@ -80,69 +80,25 @@ export default {
     },
     cities() {
       return locations;
-    }
+    },
   },
   methods: {
+    isFormValid() {
+      return this.city !== '' && this.month !== '' && this.name !== '';
+    },
     submit() {
-      if (this.city !== "" && this.month !== "" && this.name !== "") {
-        this.$emit("submitLocation", {
+      if (this.isFormValid()) {
+        this.$emit('submitLocation', {
           city: this.city,
           month: this.month,
           name: this.name,
-          email: this.email
+          email: this.email,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.form-wrapper {
-  text-align: left;
-  margin-top: 20px;
-  @media screen and (max-width: 1024px) {
-    margin-top: 0;
-  }
-}
-
-.form-group {
-  @media screen and (max-width: 1024px) {
-    margin-bottom: 5px;
-  }
-  & > label {
-    margin-bottom: 0;
-  }
-
-  .input-group-text {
-    border: none;
-    color: #c5c5c5;
-  }
-}
-
-input,
-select {
-  background: #f5f4f8;
-  border-radius: 5px;
-  border: none;
-}
-
-.submit-button {
-  border-radius: 30px;
-  margin-top: 60px;
-  border-width: 3px;
-  font-weight: bold;
-
-  &:disabled {
-    cursor: not-allowed;
-  }
-
-  @media screen and (max-width: 1024px) {
-    margin-top: 20px;
-  }
-}
-
-.search-icon {
-  margin-left: 10px;
-}
 </style>

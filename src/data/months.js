@@ -10,5 +10,5 @@ export default [
   {
     engName: 'July',
     name: 'Lipiec',
-  }
+  },
 ];

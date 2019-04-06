@@ -15,34 +15,36 @@
 </template>
 
 <script>
-import { LCircle, LTooltip, LFeatureGroup, LMarker } from "vue2-leaflet";
-import { getRequestsForCity } from "../../firebase";
+import {
+  LCircle, LTooltip, LFeatureGroup, LMarker,
+} from 'vue2-leaflet';
+import { getRequestsForCity } from '../../firebase';
 
 export default {
   components: {
     LCircle,
     LTooltip,
     LMarker,
-    LFeatureGroup
+    LFeatureGroup,
   },
-  props: ["center", "name"],
+  props: ['center', 'name'],
   data() {
     return {
-      color: "#0C81E4",
+      color: '#0C81E4',
       radius: 0,
       hitWeight: 20000,
-      done: 0
+      done: 0,
     };
   },
   mounted() {
     if (this.name) {
-      getRequestsForCity(this.name).onSnapshot(snapshot => {
+      getRequestsForCity(this.name).onSnapshot((snapshot) => {
         const hits = snapshot.docs.length;
         this.radius = hits * this.hitWeight;
         if (hits > 0) {
           let done = 0;
-          snapshot.forEach(doc => {
-            if (doc.data().status === "done") {
+          snapshot.forEach((doc) => {
+            if (doc.data().status === 'done') {
               done += 1;
             }
             this.done = done;
@@ -50,7 +52,7 @@ export default {
         }
       });
     }
-  }
+  },
 };
 </script>
 

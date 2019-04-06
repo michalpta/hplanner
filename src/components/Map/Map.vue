@@ -22,22 +22,23 @@
 </template>
 
 <script>
-import * as L from "leaflet";
-import { LMap, LTileLayer, LCircle, LMarker } from "vue2-leaflet";
-import MapCircle from "./MapCircle.vue";
-import locations from "../../data/locations";
+import * as L from 'leaflet';
+import {
+  LMap, LTileLayer,
+} from 'vue2-leaflet';
+import MapCircle from './MapCircle.vue';
+import locations from '../../data/locations';
 
 export default {
   components: {
     LMap,
     LTileLayer,
     MapCircle,
-    LCircle
   },
   data() {
     return {
       // url: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 4,
       center: [50.047, 20.0047],
       bounds: null,
@@ -46,7 +47,7 @@ export default {
   computed: {
     cities() {
       return locations;
-    }
+    },
   },
   methods: {
     zoomUpdated(zoom) {
@@ -65,8 +66,8 @@ export default {
     },
     updateMap() {
       setTimeout(() => this.$refs.map.mapObject.invalidateSize(), 1);
-    }
-  }
+    },
+  },
 };
 </script>
 

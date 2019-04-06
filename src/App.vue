@@ -152,4 +152,53 @@ body {
     }
   }
 }
+
+.form-wrapper {
+  text-align: left;
+  margin-top: 20px;
+  @media screen and (max-width: 1024px) {
+    margin-top: 0;
+  }
+}
+
+.form-group {
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 5px;
+  }
+  & > label {
+    margin-bottom: 0;
+  }
+
+  .input-group-text {
+    border: none;
+    color: #c5c5c5;
+    background: #f5f4f8 !important;
+  }
+}
+
+input,
+select {
+  background: #f5f4f8 !important;
+  border-radius: 5px !important;
+  border: none !important;
+}
+
+.submit-button {
+  border-radius: 30px;
+  margin-top: 40px;
+  border-width: 3px;
+  font-weight: bold;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 20px;
+  }
+}
+
+.search-icon {
+  margin-left: 10px;
+}
 </style>

@@ -3,8 +3,12 @@
     <div class="details__destination">
       <div>{{tripData.city}}</div>
       <div>
-        <span class="details__time">{{tripTime(tripData.flightDate, tripData.returnDate)}} DNI</span>
-        <span class="details__cost">{{tripCost(tripData.flightCost, tripData.hotelCost)}}</span>
+        <span class="details__time">
+          {{tripTime(tripData.flightDate, tripData.returnDate)}} DNI
+        </span>
+        <span class="details__cost">
+          {{tripCost(tripData.flightCost, tripData.hotelCost)}}
+        </span>
       </div>
     </div>
     <div class="trip-card">
@@ -93,7 +97,7 @@ export default {
       return `${separateCost}€`;
     },
     hotelCost(cost) {
-      let filteredCost = cost.replace('€', '').trim();
+      const filteredCost = cost.replace('€', '').trim();
       return `${filteredCost}€`;
     },
     tripTime(startDate, endDate) {
@@ -106,8 +110,8 @@ export default {
       const hotel = hotelCost.replace('€', '');
       const cost = +hotel + +flight;
       return `${cost}€`;
-    }
-  }
+    },
+  },
 };
 </script>
 
