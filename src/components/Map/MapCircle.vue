@@ -30,7 +30,7 @@ export default {
     return {
       color: "#0C81E4",
       radius: 0,
-      hitWeight: 10000,
+      hitWeight: 20000,
       done: 0
     };
   },
