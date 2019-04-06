@@ -27,6 +27,12 @@ export default {};
 .wave-divider {
   margin-top: 40px;
   margin-bottom: 40px;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
   & > img {
     width: 100%;
   }

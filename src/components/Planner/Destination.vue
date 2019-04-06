@@ -55,7 +55,7 @@
       @click="submit"
       :disabled="city && month && name ? false : true"
     >
-      Submit
+      Search
       <i class="fas fa-search search-icon"></i>
     </button>
   </div>
@@ -101,11 +101,22 @@ export default {
 .form-wrapper {
   text-align: left;
   margin-top: 20px;
+  @media screen and (max-width: 1024px) {
+    margin-top: 0;
+  }
 }
 
 .form-group {
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 5px;
+  }
   & > label {
     margin-bottom: 0;
+  }
+
+  .input-group-text {
+    border: none;
+    color: #c5c5c5;
   }
 }
 
@@ -113,6 +124,7 @@ input,
 select {
   background: #f5f4f8;
   border-radius: 5px;
+  border: none;
 }
 
 .submit-button {
@@ -123,6 +135,10 @@ select {
 
   &:disabled {
     cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 20px;
   }
 }
 

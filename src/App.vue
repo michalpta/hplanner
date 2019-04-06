@@ -6,7 +6,7 @@
     <div class="map-section" :class="{ 'map-section--hidden': mapHidden, 'map-section--shown': !mapHidden }">
       <Map ref="map"/>
     </div>
-    <button class="toggle-map-button" @click="toggleMap" title="Toggle map"><i class="far fa-map"></i></button>
+    <button class="toggle-map-button" @click="toggleMap" title="Toggle map"><i class="fas fa-map"></i></button>
   </div>
 </template>
 
@@ -134,20 +134,21 @@ body {
   display: none;
   @media screen and (max-width: 1024px) {
     display: block;
-    position: absolute;
+    position: fixed;
     z-index: 100;
-    bottom: -15px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 3px solid darken(#0098cc, 10%);
-    background: #0098cc;
+    bottom: 15px;
+    right: 15px;
+    background: #55B0F3;
     border-radius: 50%;
+    color: #fff;
     cursor: pointer;
-    font-size: 30px;
-    padding: 15px;
+    font-size: 19px;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.31);
     transition: background 0.3s ease-in-out;
     &:hover {
-      background: darken(#0098cc, 5%);
+      background: darken(#55B0F3, 10%);
     }
   }
 }
