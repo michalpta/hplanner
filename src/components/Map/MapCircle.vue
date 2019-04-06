@@ -1,10 +1,16 @@
 <template>
-  <l-feature-group>
-    <l-marker :lat-lng="center"></l-marker>
-    <l-circle v-if="radius > 0" :lat-lng="center" :radius="radius" :color="color" :fill-color="color">
+  <l-feature-group v-if="radius > 0">
+    <l-marker :lat-lng="center">
       <l-tooltip>{{name}}</l-tooltip>
-    </l-circle>
-    <l-circle v-if="done > 0" :lat-lng="center" :radius="done * hitWeight" :color="'green'" :fill-color="'green'"></l-circle>
+    </l-marker>
+    <l-circle :lat-lng="center" :radius="radius" :color="color" :fill-color="color"></l-circle>
+    <l-circle
+      v-if="done > 0"
+      :lat-lng="center"
+      :radius="done * hitWeight"
+      :color="'green'"
+      :fill-color="'green'"
+    ></l-circle>
   </l-feature-group>
 </template>
 

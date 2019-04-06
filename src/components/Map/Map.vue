@@ -10,7 +10,6 @@
       ref="map"
     >
       <l-tile-layer :url="url"></l-tile-layer>
-      <l-circle :lat-lng="circle.center" :radius="90000" :color="'#0098cc'"/>
       <map-circle
         v-for="(location, index) of cities"
         :key="index"
@@ -42,11 +41,6 @@ export default {
       zoom: 4,
       center: [50.047, 20.0047],
       bounds: null,
-      circle: {
-        center: [50.047, 20.0047],
-        radius: 4500,
-        color: "#0098CC"
-      }
     };
   },
   computed: {

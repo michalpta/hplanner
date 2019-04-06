@@ -1,14 +1,14 @@
 <template>
   <div class="form-wrapper">
     <div class="form-group">
-      <label>Name</label>
+      <label>Imię</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text">
             <i class="fas fa-user"></i>
           </span>
         </div>
-        <input type="text" class="form-control" placeholder="Enter name" v-model="name">
+        <input type="text" class="form-control" placeholder="Wpisz imię" v-model="name">
       </div>
     </div>
     <div class="form-group">
@@ -19,11 +19,11 @@
             <i class="fas fa-envelope"></i>
           </span>
         </div>
-        <input type="email" class="form-control" placeholder="Enter mail" v-model="email">
+        <input type="email" class="form-control" placeholder="Wpisz mail" v-model="email">
       </div>
     </div>
     <div class="form-group">
-      <label>Destination</label>
+      <label>Cel podróży</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text">
@@ -31,13 +31,13 @@
           </span>
         </div>
         <select class="form-control" v-model="city">
-          <option value selected disabled>Select city</option>
-          <option v-for="(city, index) of cities" :key="index">{{ city.name }}</option>
+          <option value selected disabled>Wybierz miasto</option>
+          <option v-for="(city, index) of cities" :key="index" :value="city.engName">{{ city.name }}</option>
         </select>
       </div>
     </div>
     <div class="form-group">
-      <label>Month</label>
+      <label>Miesiąc</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text">
@@ -45,8 +45,8 @@
           </span>
         </div>
         <select class="form-control" v-model="month">
-          <option value selected disabled>Select month</option>
-          <option v-for="(date, index) of dates" :key="index">{{ date }}</option>
+          <option value selected disabled>Wybierz miesiąc</option>
+          <option v-for="(date, index) of dates" :key="index" :value="date.engName">{{ date.name }}</option>
         </select>
       </div>
     </div>
@@ -55,7 +55,7 @@
       @click="submit"
       :disabled="city && month && name ? false : true"
     >
-      Search
+      Szukaj
       <i class="fas fa-search search-icon"></i>
     </button>
   </div>

@@ -18,7 +18,7 @@
         fill="#000033"
       ></path>
     </svg>
-    <div>We are planning your vacations, please wait!</div>
+    <div>Planujemy Twoje wakacje, poczekaj!</div>
   </div>
 </template>
 
