@@ -1,55 +1,9 @@
 <template>
   <div class="form-wrapper">
-    <div class="form-group">
-      <label>Imię</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fas fa-user"></i>
-          </span>
-        </div>
-        <input type="text" class="form-control" placeholder="Wpisz imię" v-model="name">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </div>
-        <input type="email" class="form-control" placeholder="Wpisz mail" v-model="email">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Cel podróży</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fas fa-map-marker-alt"></i>
-          </span>
-        </div>
-        <select class="form-control" v-model="city">
-          <option value selected disabled>Wybierz miasto</option>
-          <option v-for="(city, index) of cities" :key="index" :value="city.engName">{{ city.name }}</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Miesiąc</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fas fa-calendar"></i>
-          </span>
-        </div>
-        <select class="form-control" v-model="month">
-          <option value selected disabled>Wybierz miesiąc</option>
-          <option v-for="(date, index) of dates" :key="index" :value="date.engName">{{ date.name }}</option>
-        </select>
-      </div>
-    </div>
+    <text-input label="Imię" icon="fas fa-user" placeholder="Wpisz imię" @onChange="name = $event"/>
+    <text-input label="Email" icon="fas fa-envelope" placeholder="Wpisz email" @onChange="email = $event" />
+    <select-items label="Cel podróży" icon="fas fa-map-marker-alt" placeholder="Wybierz miasto" @onChange="city = $event" :values="cities" />
+    <select-items label="Miesiąc" icon="fas fa-calendar" placeholder="Wybierz miesiąc" @onChange="month = $event" :values="dates"/>
     <button
       class="btn btn-outline-primary btn-block submit-button"
       @click="submit"
@@ -62,10 +16,16 @@
 </template>
 
 <script>
+import TextInput from './TextInput.vue';
+import SelectItems from './SelectItems.vue';
 import months from "../../data/months";
 import locations from "../../data/locations";
 
 export default {
+  components: {
+    TextInput,
+    SelectItems
+  },
   data() {
     return {
       city: "",
@@ -97,7 +57,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .form-wrapper {
   text-align: left;
   margin-top: 20px;
@@ -117,14 +77,15 @@ export default {
   .input-group-text {
     border: none;
     color: #c5c5c5;
+    background-color: #f2f4f8 !important;
   }
 }
 
 input,
 select {
-  background: #f5f4f8;
-  border-radius: 5px;
-  border: none;
+  background-color: #f2f4f8 !important;
+  border-radius: 5px !important;
+  border: none !important;
 }
 
 .submit-button {
