@@ -6,7 +6,7 @@
     <div class="map-section" :class="{ 'map-section--hidden': mapHidden, 'map-section--shown': !mapHidden }">
       <Map ref="map"/>
     </div>
-    <button class="toggle-map-button" @click="mapHidden = !mapHidden" title="Toggle map"><i class="far fa-map"></i></button>
+    <button class="toggle-map-button" @click="toggleMap" title="Toggle map"><i class="far fa-map"></i></button>
   </div>
 </template>
 
@@ -30,6 +30,10 @@ export default {
     };
   },
   methods: {
+    toggleMap() {
+      this.mapHidden = !this.mapHidden;
+      this.$refs.map.updateMap();
+    },
     handleSubmit({
       city, month, name, email,
     }) {

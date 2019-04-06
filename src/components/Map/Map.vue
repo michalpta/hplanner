@@ -1,7 +1,7 @@
 <template>
   <div class="map-wrapper">
     <l-map
-      style="height: 100%; width: 100%;"
+      style="height: inherit; width: 100%;"
       :zoom="zoom"
       :center="center"
       @update:zoom="zoomUpdated"
@@ -68,6 +68,9 @@ export default {
       const dest = locations.filter(c => c.name === city)[0];
       const group = L.latLngBounds([this.center, dest.location]);
       this.$refs.map.fitBounds(group);
+    },
+    updateMap() {
+      setTimeout(() => this.$refs.map.mapObject.invalidateSize(), 1);
     }
   }
 };
