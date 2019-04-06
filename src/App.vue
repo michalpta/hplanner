@@ -37,34 +37,32 @@ export default {
     handleSubmit({
       city, month, name, email,
     }) {
-      console.log(month);
-      console.log(city);
       this.searching = true;
       this.showTrip = false;
-      // getRequestsCollection()
-      //   .add({
-      //     name,
-      //     email,
-      //     city,
-      //     month,
-      //     status: 'processing',
-      //   })
-      //   .then((docRef) => {
-      //     localStorage.referenceId = docRef.id;
-      //     getRequestById(localStorage.referenceId).onSnapshot((doc) => {
-      //       if (doc.exists) {
-      //         const data = doc.data();
-      //         if (data.status === 'processing') {
-      //           this.searching = true;
-      //         } else if (data.status === 'done') {
-      //           this.searching = false;
-      //           this.tripData = data;
-      //           this.showTrip = true;
-      //           this.$refs.map.showTripDetails(this.tripData.city);
-      //         }
-      //       }
-      //     });
-      //   });
+      getRequestsCollection()
+        .add({
+          name,
+          email,
+          city,
+          month,
+          status: 'processing',
+        })
+        .then((docRef) => {
+          localStorage.referenceId = docRef.id;
+          getRequestById(localStorage.referenceId).onSnapshot((doc) => {
+            if (doc.exists) {
+              const data = doc.data();
+              if (data.status === 'processing') {
+                this.searching = true;
+              } else if (data.status === 'done') {
+                this.searching = false;
+                this.tripData = data;
+                this.showTrip = true;
+                this.$refs.map.showTripDetails(this.tripData.city);
+              }
+            }
+          });
+        });
     },
   },
   created() {
