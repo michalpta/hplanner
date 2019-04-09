@@ -10,9 +10,9 @@
     </l-marker>
     <l-circle :lat-lng="center" :radius="radius" :color="color" :fill-color="color"></l-circle>
     <l-circle
-      v-if="doneRatio > 0"
+      v-if="hitsDone > 0"
       :lat-lng="center"
-      :radius="doneRatio * radius"
+      :radius="(hitsDone / hits) * radius"
       :color="'green'"
       :fill-color="'green'"
     ></l-circle>
@@ -37,31 +37,29 @@ export default {
     return {
       color: '#0C81E4',
       hits: 0,
+      hitsDone: 0,
       radius: 0,
       maxRadius: 400000,
       minRadius: 20000,
-      doneRatio: 0,
-      growthSlowingFactor: 10,
+      radiusReducingHitBuffer: 10,
     };
   },
   mounted() {
     getRequestsCollection().onSnapshot(((snapshot) => {
-      const totalHits = snapshot.docs.length;
-      if (totalHits > 0) {
-        const requestsForCity = snapshot.docs.filter(r => r.data().city === this.engName);
-        this.hits = requestsForCity.length;
-        this.hitsDone = requestsForCity.filter(r => r.data().status === 'done').length;
-        this.doneRatio = this.hitsDone / this.hits;
-        const radiusRange = this.maxRadius - this.minRadius;
-        this.radius = (this.hits / totalHits) * radiusRange
-          * (Math.min(this.growthSlowingFactor, totalHits) / this.growthSlowingFactor)
-          + this.minRadius;
-      } else {
-        this.hits = 0;
-        this.hitsDone = 0;
-        this.doneRatio = 0;
-        this.radius = 0;
-      }
+      const requests = snapshot.docs.filter(r => !(r.data().canceled));
+      const totalHits = requests.length;
+
+      const requestsForCity = requests.filter(r => r.data().city === this.engName);
+      this.hits = requestsForCity.length;
+
+      const requestsForCityDone = requestsForCity.filter(r => r.data().status === 'done');
+      this.hitsDone = requestsForCityDone.length;
+
+      const radiusRange = this.maxRadius - this.minRadius;
+      const hitsRatio = totalHits ? (this.hits / totalHits) : 0;
+      const radiusReducingMultiplier = Math.min(this.radiusReducingHitBuffer, this.hits)
+        / this.radiusReducingHitBuffer;
+      this.radius = hitsRatio * radiusRange * radiusReducingMultiplier + this.minRadius;
     }));
   },
 };

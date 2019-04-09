@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="planner-section" :class="{ 'map-section--hidden': !mapHidden, 'map-section--shown': mapHidden }">
-      <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" @submitLocation="handleSubmit" />
+      <Planner :show-trip="showTrip" :trip-data="tripData" :searching="searching" @submitLocation="handleSubmit" @cancel="cancel" />
     </div>
     <div class="map-section" :class="{ 'map-section--hidden': mapHidden, 'map-section--shown': !mapHidden }">
       <Map ref="map"/>
@@ -62,6 +62,14 @@ export default {
               }
             }
           });
+        });
+    },
+    cancel() {
+      getRequestById(localStorage.referenceId).update({ canceled: true })
+        .then(() => {
+          this.showTrip = false;
+          this.searching = false;
+          localStorage.removeItem('referenceId');
         });
     },
   },
