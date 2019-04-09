@@ -45,7 +45,7 @@ export default {
     };
   },
   mounted() {
-    getRequestsCollection().onSnapshot(((snapshot) => {
+    getRequestsCollection().where('isCancelled', '==', false).onSnapshot(((snapshot) => {
       const totalHits = snapshot.docs.length;
       if (totalHits > 0) {
         const requestsForCity = snapshot.docs.filter(r => r.data().city === this.engName);
