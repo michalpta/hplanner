@@ -53,7 +53,7 @@ export default {
         this.hitsDone = requestsForCity.filter(r => r.data().status === 'done').length;
         this.doneRatio = this.hitsDone / this.hits;
         const radiusRange = this.maxRadius - this.minRadius;
-        this.radius = (this.hits / totalHits) * radiusRange
+        this.radius = (this.hits / totalHits) * radiusRange * 2
           * (Math.min(this.growthSlowingFactor, totalHits) / this.growthSlowingFactor)
           + this.minRadius;
       } else {

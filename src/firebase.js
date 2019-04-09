@@ -9,7 +9,7 @@ firebase.initializeApp({
 const db = firebase.firestore();
 
 function getRequestsCollection() {
-  return db.collection('requests').where('isCancelled', '==', false);
+  return db.collection('requests');
 }
 
 function getRequestById(referenceId) {
