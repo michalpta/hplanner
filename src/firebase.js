@@ -1,15 +1,15 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 firebase.initializeApp({
   projectId: '',
-  databaseURL: ''
+  databaseURL: '',
 });
 
 const db = firebase.firestore();
 
 function getRequestsCollection() {
-  return db.collection('requests');
+  return db.collection('requests').where('isCancelled', '==', false);
 }
 
 function getRequestById(referenceId) {
@@ -23,5 +23,5 @@ function getRequestsForCity(city) {
 export {
   getRequestById,
   getRequestsCollection,
-  getRequestsForCity
+  getRequestsForCity,
 };

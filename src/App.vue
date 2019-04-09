@@ -143,6 +143,7 @@ body {
     color: #fff;
     cursor: pointer;
     font-size: 19px;
+    padding:0;
     width: 50px;
     height: 50px;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.31);
