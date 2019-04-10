@@ -51,7 +51,7 @@ export default {
       this.hits = requestsForCity.length;
       const requestsForCityDone = requestsForCity.filter(r => r.data().status === 'done');
       this.hitsDone = requestsForCityDone.length;
-      this.radius = Math.min(hits * radiusIncrement + this.minRadius, this.maxRadius);
+      this.radius = Math.min(this.hits * this.radiusIncrement + this.minRadius, this.maxRadius);
     }));
   },
 };
